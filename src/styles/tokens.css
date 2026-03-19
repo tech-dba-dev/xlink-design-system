@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════
-   DESIGN TOKENS — CPS Platform
+   DESIGN TOKENS — xLink
 ═══════════════════════════════════════════ */
 :root {
   --primary-darkest: #071628;
@@ -64,10 +64,7 @@ body {
    BACKGROUND
 ═══════════════════════════════════════════ */
 .bg-grid {
-  background-image:
-    linear-gradient(rgba(29,99,237,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(29,99,237,0.03) 1px, transparent 1px);
-  background-size: 48px 48px;
+  /* clean — mesh only, no grid lines */
 }
 
 .bg-mesh-corporate {

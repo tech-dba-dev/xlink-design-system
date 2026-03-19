@@ -9,7 +9,7 @@ import {
   LayoutDashboard, Package, MoreHorizontal, Building, User,
   AlertTriangle,
 } from 'lucide-react'
-import { Button, Input, Select, Textarea, Badge, Tag, Alert, Modal, DataTable, KpiCard, Timeline, Sidebar, Tabs, Breadcrumbs } from './components'
+import { Button, Input, Select, Textarea, Badge, Tag, Alert, Modal, DataTable, KpiCard, Timeline, Sidebar, Tabs, Breadcrumbs, XLinkLogo, SearchBox } from './components'
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
@@ -34,6 +34,19 @@ const sideNavItems = [
   { id: 'modais', icon: <SquareStack size={16} />, label: 'Modais' },
   { id: 'elevacao', icon: <Box size={16} />, label: 'Elevacao & Depth' },
   { id: 'icones', icon: <Smile size={16} />, label: 'Iconografia' },
+]
+
+const sidebarItems = [
+  { icon: <LayoutDashboard size={16} />, label: 'Dashboard', active: true },
+  { icon: <Users size={16} />, label: 'Clientes (CRM)' },
+  { icon: <FileCheck size={16} />, label: 'Contratos' },
+  { icon: <Car size={16} />, label: 'Mobilidade' },
+  { icon: <Package size={16} />, label: 'Documentos' },
+  { icon: <Truck size={16} />, label: 'Frota & Aluguel' },
+  { icon: <Receipt size={16} />, label: 'Billing' },
+  { icon: <BarChart3 size={16} />, label: 'Relatorios' },
+  { icon: <Shield size={16} />, label: 'IAM & Acessos' },
+  { icon: <ScrollText size={16} />, label: 'Auditoria' },
 ]
 
 function App() {
@@ -86,14 +99,12 @@ function App() {
         <header className="mb-12 pb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-[var(--border)]">
           <div className="flex items-center gap-4">
             <div className="w-11 h-11 bg-[var(--primary)] rounded-xl flex items-center justify-center">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" />
-              </svg>
+              <XLinkLogo size={24} color="white" />
             </div>
             <div>
               <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-[var(--primary)] opacity-60">Design System v1.0</span>
               <h1 className="font-title text-xl font-bold text-[var(--text-primary)] leading-tight mt-0.5">
-                Connecting People & Services
+                xLink
               </h1>
             </div>
           </div>
@@ -130,27 +141,27 @@ function App() {
               <SectionTitle>Identidade de Marca</SectionTitle>
               <div className="space-y-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div className="p-8 bg-white rounded-2xl elevation-1 flex flex-col gap-4">
+                  <div className="p-8 bg-white rounded-xl elevation-1 flex flex-col gap-4">
                     <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider">Fundo claro</span>
                     <div className="flex items-center justify-center py-6 gap-4">
                       <div className="w-12 h-12 bg-[var(--primary)] rounded-[14px] flex items-center justify-center">
-                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" /></svg>
+                        <XLinkLogo size={26} color="white" />
                       </div>
                       <div>
-                        <div className="font-title text-[22px] font-bold text-[var(--text-primary)] leading-none">CPS</div>
-                        <div className="text-[10px] font-medium text-[var(--text-muted)] tracking-wider mt-px">PLATFORM</div>
+                        <div className="font-title text-[22px] font-bold text-[var(--text-primary)] leading-none">xLink</div>
+                        <div className="text-[10px] font-medium text-[var(--text-muted)] tracking-wider mt-px">DESIGN SYSTEM</div>
                       </div>
                     </div>
                   </div>
-                  <div className="p-8 rounded-2xl flex flex-col gap-4 bg-[var(--primary-dark)]">
+                  <div className="p-8 rounded-xl flex flex-col gap-4 bg-[var(--primary-dark)]">
                     <span className="text-[10px] font-bold text-white/30 uppercase tracking-wider">Fundo escuro</span>
                     <div className="flex items-center justify-center py-6 gap-4">
                       <div className="w-12 h-12 bg-white/[0.12] rounded-[14px] flex items-center justify-center border border-white/10">
-                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" /></svg>
+                        <XLinkLogo size={26} color="white" />
                       </div>
                       <div>
-                        <div className="font-title text-[22px] font-bold text-white leading-none">CPS</div>
-                        <div className="text-[10px] font-medium text-white/40 tracking-wider mt-px">PLATFORM</div>
+                        <div className="font-title text-[22px] font-bold text-white leading-none">xLink</div>
+                        <div className="text-[10px] font-medium text-white/40 tracking-wider mt-px">DESIGN SYSTEM</div>
                       </div>
                     </div>
                   </div>
@@ -162,9 +173,9 @@ function App() {
             <section id="cores">
               <SectionTitle>Paleta de Cores</SectionTitle>
               <div className="space-y-5">
-                <div className="p-5 bg-white rounded-2xl elevation-1">
+                <div className="p-5 bg-white rounded-xl elevation-1">
                   <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-4">Escala Primaria</span>
-                  <div className="grid grid-cols-6 rounded-2xl overflow-hidden border border-[var(--border)]">
+                  <div className="grid grid-cols-6 rounded-xl overflow-hidden border border-[var(--border)]">
                     {[
                       { name: 'DARKEST', hex: '#071628', bg: 'var(--primary-darkest)', light: true },
                       { name: 'DARK', hex: '#0D2847', bg: 'var(--primary-dark)', light: true },
@@ -180,7 +191,7 @@ function App() {
                     ))}
                   </div>
                 </div>
-                <div className="p-5 bg-white rounded-2xl elevation-1">
+                <div className="p-5 bg-white rounded-xl elevation-1">
                   <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-4">Semanticas</span>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                     {[
@@ -206,7 +217,7 @@ function App() {
             <section id="tipografia">
               <SectionTitle>Tipografia</SectionTitle>
               <div className="space-y-5">
-                <div className="p-6 bg-white rounded-2xl elevation-1">
+                <div className="p-6 bg-white rounded-xl elevation-1">
                   <span className="text-[10px] font-bold text-[var(--primary)] uppercase tracking-wider">Sora — Titulos & Display</span>
                   <div className="mt-5 flex flex-col">
                     {[
@@ -226,7 +237,7 @@ function App() {
                     ))}
                   </div>
                 </div>
-                <div className="p-6 bg-white rounded-2xl elevation-1">
+                <div className="p-6 bg-white rounded-xl elevation-1">
                   <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider">DM Sans — Corpo & Interface</span>
                   <div className="mt-5 flex flex-col">
                     {[
@@ -234,7 +245,7 @@ function App() {
                       { label: 'Small', text: 'Mais de 12 modulos operacionais integrados.', size: '13px', spec: '13px / Regular' },
                       { label: 'Caption', text: 'Atualizado em 19 mar 2026 · v1.0', size: '12px', spec: '12px / Regular', muted: true },
                       { label: 'Label', text: 'CENTRO DE CUSTO · FINANCEIRO', size: '11px', spec: '11px / SemiBold + caps', upper: true, bold: true },
-                      { label: 'Overline', text: 'DESIGN SYSTEM V1.0 — CPS PLATFORM', size: '10px', spec: '10px / Bold + caps', upper: true, bold: true, muted: true },
+                      { label: 'Overline', text: 'DESIGN SYSTEM V1.0 — XLINK', size: '10px', spec: '10px / Bold + caps', upper: true, bold: true, muted: true },
                     ].map((t, i) => (
                       <div key={t.label} className={`flex items-baseline justify-between py-3.5 ${i < 4 ? 'border-b border-[#F8FAFC]' : ''}`}>
                         <div className="flex items-baseline gap-4 flex-1">
@@ -256,7 +267,7 @@ function App() {
             <section id="botoes">
               <SectionTitle>Botoes</SectionTitle>
               <div className="space-y-5">
-                <div className="p-6 bg-white rounded-2xl elevation-1">
+                <div className="p-6 bg-white rounded-xl elevation-1">
                   <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-5">Variantes</span>
                   <div className="flex flex-wrap gap-4 items-end">
                     <div className="flex flex-col gap-2"><span className="text-[10px] text-[var(--text-muted)] font-semibold">Primario</span><Button><Plus size={15} /> Criar Contrato</Button></div>
@@ -267,7 +278,7 @@ function App() {
                     <div className="flex flex-col gap-2"><span className="text-[10px] text-[var(--text-muted)] font-semibold">Sucesso</span><Button variant="success"><Check size={15} /> Aprovar</Button></div>
                   </div>
                 </div>
-                <div className="p-6 bg-white rounded-2xl elevation-1">
+                <div className="p-6 bg-white rounded-xl elevation-1">
                   <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-5">Tamanhos & Formatos</span>
                   <div className="flex flex-wrap gap-4 items-end">
                     <div className="flex flex-col gap-2"><span className="text-[10px] text-[var(--text-muted)] font-semibold">Small</span><Button size="sm">Detalhes</Button></div>
@@ -285,13 +296,45 @@ function App() {
             <section id="inputs">
               <SectionTitle>Inputs & Forms</SectionTitle>
               <div className="space-y-5">
-                <div className="p-6 bg-white rounded-2xl elevation-1">
-                  <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-4">Search</span>
+                <div className="p-6 bg-white rounded-xl elevation-1">
+                  <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-4">Search simples</span>
                   <div className="max-w-[480px]">
                     <Input iconLeft={<Search size={16} />} placeholder="Buscar cliente, contrato ou servico..." />
                   </div>
                 </div>
-                <div className="p-6 bg-white rounded-2xl elevation-1">
+                <div className="p-6 bg-white rounded-xl elevation-1">
+                  <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-4">Search com dropdown agrupado</span>
+                  <div className="max-w-[480px]">
+                    <SearchBox
+                      placeholder="Buscar cliente, contrato ou servico..."
+                      groups={[
+                        {
+                          title: 'Clientes',
+                          items: [
+                            { id: '1', label: 'Acme Corporation', description: 'NIF: 500 123 456 · Portugal', icon: <Building2 size={15} /> },
+                            { id: '2', label: 'Grupo Horizonte Holdings', description: 'CNPJ: 12.345.678/0001-90 · Brasil', icon: <Building size={15} /> },
+                            { id: '3', label: 'LogiTrans S.A.', description: 'NIF: 501 987 654 · Portugal', icon: <Building2 size={15} /> },
+                          ],
+                        },
+                        {
+                          title: 'Contratos',
+                          items: [
+                            { id: '4', label: 'CTR-2025-00142', description: 'Acme Corporation · Mobilidade + Documentos', icon: <FileCheck size={15} /> },
+                            { id: '5', label: 'CTR-2025-00089', description: 'Grupo Horizonte · Frota & Aluguel', icon: <FileCheck size={15} /> },
+                          ],
+                        },
+                        {
+                          title: 'Servicos',
+                          items: [
+                            { id: '6', label: 'Mobilidade Corporativa', description: '3 contratos ativos', icon: <Car size={15} /> },
+                            { id: '7', label: 'Tramitacao Documental', description: '2 contratos ativos', icon: <FileText size={15} /> },
+                          ],
+                        },
+                      ]}
+                    />
+                  </div>
+                </div>
+                <div className="p-6 bg-white rounded-xl elevation-1">
                   <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-4">Text Inputs</span>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <Input label="Nome da Empresa" placeholder="Ex: Acme Corp Ltda" helper="Nome legal da entidade" />
@@ -300,7 +343,7 @@ function App() {
                     <Input label="Centro de Custo — erro" error="Formato invalido. Use o codigo do centro de custo (ex: CC-001)." defaultValue="ABC" />
                   </div>
                 </div>
-                <div className="p-6 bg-white rounded-2xl elevation-1">
+                <div className="p-6 bg-white rounded-xl elevation-1">
                   <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-4">Selects & Textarea</span>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <Select label="Dominio de Servico" options={[
@@ -328,7 +371,7 @@ function App() {
             <section id="badges">
               <SectionTitle>Status & Badges</SectionTitle>
               <div className="space-y-5">
-                <div className="p-6 bg-white rounded-2xl elevation-1">
+                <div className="p-6 bg-white rounded-xl elevation-1">
                   <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-4">Estados de Entidade (State Machine)</span>
                   <div className="flex flex-wrap gap-3">
                     <Badge variant="config">Em Configuracao</Badge>
@@ -340,7 +383,7 @@ function App() {
                     <Badge variant="neutral">Desativado</Badge>
                   </div>
                 </div>
-                <div className="p-6 bg-white rounded-2xl elevation-1">
+                <div className="p-6 bg-white rounded-xl elevation-1">
                   <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-4">Transicoes de Estado — Exemplo: Usuario</span>
                   <div className="flex items-center gap-2 flex-wrap text-xs font-semibold">
                     <Badge variant="invited">Convidado</Badge>
@@ -354,7 +397,7 @@ function App() {
                     <Badge variant="closed">Desativado</Badge>
                   </div>
                 </div>
-                <div className="p-6 bg-white rounded-2xl elevation-1">
+                <div className="p-6 bg-white rounded-xl elevation-1">
                   <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-4">Tags de Dominio / Servico</span>
                   <div className="flex flex-wrap gap-2">
                     <Tag color="primary">Mobilidade Corporativa</Tag>
@@ -370,7 +413,7 @@ function App() {
             {/* DATA TABLE */}
             <section id="tabela">
               <SectionTitle>Data Table</SectionTitle>
-              <div className="bg-white rounded-2xl elevation-2 overflow-hidden">
+              <div className="bg-white rounded-xl elevation-2 overflow-hidden">
                 <div className="py-4 px-5 flex items-center justify-between border-b border-[var(--border)] gap-3 flex-wrap">
                   <div className="font-title text-[15px] font-semibold text-[var(--text-primary)]">Clientes Corporativos</div>
                   <div className="flex gap-2 items-center">
@@ -409,7 +452,7 @@ function App() {
                 <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block">Cards de Servico & Entidade</span>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {/* Viagem Card */}
-                  <div className="bg-white rounded-2xl elevation-1 overflow-hidden card-hover">
+                  <div className="bg-white rounded-xl elevation-1 overflow-hidden card-hover">
                     <div className="px-4 h-12 flex items-center justify-between" style={{ background: 'linear-gradient(135deg, var(--primary-lighter), var(--primary-light))' }}>
                       <div className="flex items-center gap-2">
                         <Car size={16} className="text-[var(--primary)]" />
@@ -433,7 +476,7 @@ function App() {
                     </div>
                   </div>
                   {/* Contrato Card */}
-                  <div className="bg-white rounded-2xl elevation-1 overflow-hidden card-hover">
+                  <div className="bg-white rounded-xl elevation-1 overflow-hidden card-hover">
                     <div className="px-4 h-12 flex items-center justify-between" style={{ background: 'linear-gradient(135deg, #EEF2FF, #DBEAFE)' }}>
                       <div className="flex items-center gap-2">
                         <FileCheck size={16} className="text-[#4338CA]" />
@@ -457,7 +500,7 @@ function App() {
 
                 {/* Customer 360 */}
                 <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block">Customer 360º — Preview</span>
-                <div className="bg-white rounded-2xl elevation-2 overflow-hidden">
+                <div className="bg-white rounded-xl elevation-2 overflow-hidden">
                   <div className="py-5 px-6 flex items-center justify-between" style={{ background: 'linear-gradient(135deg, var(--primary-dark), #1A3F6E)' }}>
                     <div className="flex items-center gap-3.5">
                       <div className="w-12 h-12 bg-white/[0.12] rounded-[14px] flex items-center justify-center border border-white/10">
@@ -496,22 +539,11 @@ function App() {
             <section id="nav">
               <SectionTitle>Navegacao</SectionTitle>
               <div className="space-y-5">
-                <div className="p-6 bg-white rounded-2xl elevation-1">
-                  <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-4">Sidebar Menu — Operation Portal</span>
-                  <Sidebar items={[
-                    { icon: <LayoutDashboard size={16} />, label: 'Dashboard', active: true },
-                    { icon: <Users size={16} />, label: 'Clientes (CRM)' },
-                    { icon: <FileCheck size={16} />, label: 'Contratos' },
-                    { icon: <Car size={16} />, label: 'Mobilidade' },
-                    { icon: <Package size={16} />, label: 'Documentos' },
-                    { icon: <Truck size={16} />, label: 'Frota & Aluguel' },
-                    { icon: <Receipt size={16} />, label: 'Billing' },
-                    { icon: <BarChart3 size={16} />, label: 'Relatorios' },
-                    { icon: <Shield size={16} />, label: 'IAM & Acessos' },
-                    { icon: <ScrollText size={16} />, label: 'Auditoria' },
-                  ]} />
+                <div className="p-6 bg-white rounded-xl elevation-1">
+                  <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-4">Sidebar Menu — clique na seta para expandir/recolher</span>
+                  <Sidebar items={sidebarItems} />
                 </div>
-                <div className="p-6 bg-white rounded-2xl elevation-1">
+                <div className="p-6 bg-white rounded-xl elevation-1">
                   <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-4">Tabs & Breadcrumbs</span>
                   <Breadcrumbs items={[
                     { label: 'CRM' },
@@ -532,7 +564,7 @@ function App() {
             {/* TIMELINE */}
             <section id="timeline">
               <SectionTitle>Timeline & Audit Log</SectionTitle>
-              <div className="bg-white rounded-2xl elevation-1 p-6">
+              <div className="bg-white rounded-xl elevation-1 p-6">
                 <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-5">Historico de Governanca — Cliente</span>
                 <Timeline events={[
                   { title: 'Estado alterado para Ativo', description: 'Admin: Maria Oliveira · Justificativa: "Onboarding concluido, todos os documentos validados."', date: '19 mar 2026, 14:32', dotColor: 'var(--success)' },
@@ -558,14 +590,14 @@ function App() {
             <section id="modais">
               <SectionTitle>Modais</SectionTitle>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <div className="p-6 bg-white rounded-2xl elevation-1 flex flex-col gap-4">
+                <div className="p-6 bg-white rounded-xl elevation-1 flex flex-col gap-4">
                   <div>
                     <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-1">Confirmacao com justificativa</span>
                     <p className="text-[13px] text-[var(--text-muted)]">Usado para mudancas de estado, encerramento de contratos e acoes irreversiveis.</p>
                   </div>
                   <Button className="self-start" onClick={() => setJustifyModal(true)}>Abrir Modal</Button>
                 </div>
-                <div className="p-6 bg-white rounded-2xl elevation-1 flex flex-col gap-4">
+                <div className="p-6 bg-white rounded-xl elevation-1 flex flex-col gap-4">
                   <div>
                     <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-1">Exclusao / Encerramento</span>
                     <p className="text-[13px] text-[var(--text-muted)]">Modal destrutivo para acoes permanentes com aviso de impacto.</p>
@@ -578,12 +610,12 @@ function App() {
             {/* ELEVACAO */}
             <section id="elevacao">
               <SectionTitle>Elevacao & Depth</SectionTitle>
-              <div className="p-6 bg-white rounded-2xl elevation-1">
+              <div className="p-6 bg-white rounded-xl elevation-1">
                 <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-5">Niveis de Sombra</span>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
                   {[1, 2, 3, 4].map((n) => (
                     <div key={n} className="flex flex-col items-center gap-3">
-                      <div className={`elevation-${n} w-20 h-20 bg-white rounded-2xl flex items-center justify-center ${n === 1 ? 'border border-[var(--border)]' : ''}`}>
+                      <div className={`elevation-${n} w-20 h-20 bg-white rounded-xl flex items-center justify-center ${n === 1 ? 'border border-[var(--border)]' : ''}`}>
                         <span className="text-xs font-bold text-[var(--text-muted)]">{n}</span>
                       </div>
                       <span className="text-[10px] text-[var(--text-muted)]">elevation-{n}</span>
@@ -591,7 +623,7 @@ function App() {
                   ))}
                 </div>
               </div>
-              <div className="p-6 bg-white rounded-2xl elevation-1 mt-5">
+              <div className="p-6 bg-white rounded-xl elevation-1 mt-5">
                 <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-5">Border Radius Scale</span>
                 <div className="flex flex-wrap gap-6 items-end">
                   {[
@@ -615,7 +647,7 @@ function App() {
             {/* ICONOGRAFIA */}
             <section id="icones">
               <SectionTitle>Iconografia</SectionTitle>
-              <div className="p-6 bg-white rounded-2xl elevation-1">
+              <div className="p-6 bg-white rounded-xl elevation-1">
                 <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-4">Lucide Icons — Utilizados na plataforma</span>
                 <div className="grid grid-cols-4 sm:grid-cols-8 gap-4">
                   {[
@@ -653,11 +685,11 @@ function App() {
         <footer className="mt-24 pt-8 pb-10 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-[var(--border)]">
           <div className="flex items-center gap-2.5 opacity-40">
             <div className="w-7 h-7 bg-[var(--primary)] rounded-lg flex items-center justify-center">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" /></svg>
+              <XLinkLogo size={14} color="white" />
             </div>
-            <span className="text-[13px] font-semibold text-[var(--text-muted)] font-title">CPS Platform</span>
+            <span className="text-[13px] font-semibold text-[var(--text-muted)] font-title">xLink</span>
           </div>
-          <p className="text-xs text-[var(--text-muted)]">© 2026 Connecting People & Services — Design System v1.0</p>
+          <p className="text-xs text-[var(--text-muted)]">© 2026 xLink — Design System v1.0</p>
         </footer>
       </div>
 
@@ -683,7 +715,7 @@ function App() {
 
       <Modal open={deleteModal} onClose={() => setDeleteModal(false)}>
         <div className="flex flex-col items-center text-center gap-5">
-          <div className="w-14 h-14 bg-[var(--danger-bg)] rounded-2xl flex items-center justify-center">
+          <div className="w-14 h-14 bg-[var(--danger-bg)] rounded-xl flex items-center justify-center">
             <AlertTriangle size={26} className="text-[var(--danger)]" />
           </div>
           <div>
