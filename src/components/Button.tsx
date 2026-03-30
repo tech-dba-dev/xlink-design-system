@@ -19,17 +19,17 @@ const variantStyles: Record<ButtonVariant, string> = {
 }
 
 const sizeStyles: Record<ButtonSize, string> = {
-  sm: 'px-3.5 py-1.5 text-xs rounded-[var(--radius-sm)]',
-  md: 'px-5 py-2.5 rounded-[var(--radius-md)]',
-  lg: 'px-7 py-3 rounded-[var(--radius-md)]',
-  pill: 'px-6 py-2.5 rounded-full',
-  icon: 'w-10 h-10 p-0 rounded-[var(--radius-md)]',
+  sm: 'px-3.5 py-2 text-xs rounded-[var(--radius-sm)]',
+  md: 'px-5 py-3 rounded-[var(--radius-md)]',
+  lg: 'px-7 py-3.5 rounded-[var(--radius-md)]',
+  pill: 'px-6 py-3 rounded-full',
+  icon: 'w-11 h-11 p-0 rounded-[var(--radius-md)]',
 }
 
 export function Button({ variant = 'primary', size = 'md', className = '', children, ...props }: ButtonProps) {
   return (
     <button
-      className={`inline-flex items-center justify-center gap-2 font-semibold text-sm leading-none transition-all duration-200 cursor-pointer border-none font-[DM_Sans,sans-serif] whitespace-nowrap ${variantStyles[variant]} ${sizeStyles[size]} ${className}`}
+      className={`inline-flex items-center justify-center gap-2 font-semibold text-sm leading-none transition-all duration-200 cursor-pointer border-none font-[DM_Sans,sans-serif] whitespace-nowrap min-h-[44px] ${variantStyles[variant]} ${sizeStyles[size]} ${className}`}
       {...props}
     >
       {children}
