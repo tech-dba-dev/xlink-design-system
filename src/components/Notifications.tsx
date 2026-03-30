@@ -1,6 +1,5 @@
 import { useState, type ReactNode } from 'react'
 import { Bell, Check, CheckCheck, X, Info, AlertTriangle, CheckCircle, XCircle } from 'lucide-react'
-import { Button } from './Button'
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, type ChangeEvent } from 'react'
+import { useState, useRef, type ChangeEvent } from 'react'
 import { Camera, RotateCcw, Check, Pen, Trash2, Upload } from 'lucide-react'
 import { Button } from './Button'
 import { Textarea } from './Input'
