@@ -7,9 +7,27 @@ import {
   Calendar, CheckCircle, BarChart3, ScrollText, Clock, Settings,
   Navigation, Key, AlertCircle, FileCheck,
   LayoutDashboard, Package, MoreHorizontal, Building, User,
-  AlertTriangle,
+  AlertTriangle, FolderOpen, FolderClosed, Pencil, Phone,
 } from 'lucide-react'
-import { Button, Input, Select, Textarea, Badge, Tag, Alert, Modal, DataTable, KpiCard, Timeline, Sidebar, Tabs, Breadcrumbs, XLinkLogo, SearchBox } from './components'
+import {
+  Button, Input, Select, Textarea, Badge, Tag, Alert, Modal, DataTable, KpiCard,
+  Timeline, Sidebar, Tabs, Breadcrumbs, XLinkLogo, SearchBox,
+  // Estados & Loading
+  ToastContainer, Snackbar, OfflineBanner, useToast,
+  ErrorPage, KpiCardSkeleton, TableRowSkeleton, ListItemSkeleton, CardSkeleton,
+  EmptyState,
+  // Navegação & Feedback
+  NotificationBell, NotificationPanel, useNotifications,
+  BottomTabs, Drawer,
+  // Formulários
+  PasswordInput, DatePicker, FileUpload, MaskedInput, Checkbox, RadioGroup,
+  StarRating, RatingWithComment,
+  ConfirmModal,
+  // Data Display
+  TreeView, StateBadge,
+  // Mapas & Tracking
+  MapView, PODCapture,
+} from './components'
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
@@ -34,6 +52,13 @@ const sideNavItems = [
   { id: 'modais', icon: <SquareStack size={16} />, label: 'Modais' },
   { id: 'elevacao', icon: <Box size={16} />, label: 'Elevacao & Depth' },
   { id: 'icones', icon: <Smile size={16} />, label: 'Iconografia' },
+  { id: 'estados', icon: <AlertCircle size={16} />, label: 'Estados & Loading' },
+  { id: 'notificacoes', icon: <Bell size={16} />, label: 'Notificacoes' },
+  { id: 'mobile', icon: <Phone size={16} />, label: 'Mobile Nav' },
+  { id: 'forms-avancados', icon: <TextCursorInput size={16} />, label: 'Forms Avancados' },
+  { id: 'tree', icon: <FolderOpen size={16} />, label: 'Tree View' },
+  { id: 'mapa', icon: <MapPin size={16} />, label: 'Mapa & Tracking' },
+  { id: 'pod', icon: <FileCheck size={16} />, label: 'POD Capture' },
 ]
 
 const sidebarItems = [
@@ -53,6 +78,20 @@ function App() {
   const [activeNav, setActiveNav] = useState('marca')
   const [justifyModal, setJustifyModal] = useState(false)
   const [deleteModal, setDeleteModal] = useState(false)
+  const [confirmModal, setConfirmModal] = useState(false)
+  const [snackbar, setSnackbar] = useState(false)
+  const [offline, setOffline] = useState(false)
+  const [drawerOpen, setDrawerOpen] = useState(false)
+  const [activeTab, setActiveTab] = useState('dashboard')
+  const [selectedTree, setSelectedTree] = useState<string>()
+  const [radioVal, setRadioVal] = useState('')
+  const [checkVal, setCheckVal] = useState(false)
+  const { toasts, add: addToast, remove: removeToast } = useToast()
+  const { notifications, markRead, markAllRead, dismiss: dismissNotif, add: addNotif } = useNotifications([
+    { id: '1', variant: 'success', title: 'Contrato ativado', message: 'CTR-2025-00142 foi ativado com sucesso.', time: 'Agora mesmo', read: false },
+    { id: '2', variant: 'warning', title: 'Aprovação pendente', message: '7 viagens aguardam aprovação.', time: '5 min atrás', read: false },
+    { id: '3', variant: 'info', title: 'Novo catálogo disponível', message: 'Tabela de preços v4 publicada.', time: '1h atrás', read: true },
+  ])
 
   const tableData = [
     { name: 'Acme Corporation', nif: 'NIF: 500 123 456', type: 'B2B', typeBg: 'bg-[#F1F5F9]', typeColor: 'text-[var(--text-secondary)]', country: 'Portugal', status: 'active' as const, contracts: 3, iconBg: 'bg-[var(--primary-lighter)]', iconColor: 'text-[var(--primary)]', icon: <Building2 size={15} /> },
@@ -646,8 +685,7 @@ function App() {
 
             {/* ICONOGRAFIA */}
             <section id="icones">
-              <SectionTitle>Iconografia</SectionTitle>
-              <div className="p-6 bg-white rounded-xl elevation-1">
+              <SectionTitle>Iconografia</SectionTitle>              <div className="p-6 bg-white rounded-xl elevation-1">
                 <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-4">Lucide Icons — Utilizados na plataforma</span>
                 <div className="grid grid-cols-4 sm:grid-cols-8 gap-4">
                   {[
@@ -678,6 +716,314 @@ function App() {
                 </div>
               </div>
             </section>
+            {/* ESTADOS & LOADING */}
+            <section id="estados">
+              <SectionTitle>Estados & Loading</SectionTitle>
+              <div className="space-y-5">
+
+                {/* Toasts */}
+                <div className="p-6 bg-white rounded-xl elevation-1">
+                  <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-4">Toast Notifications</span>
+                  <div className="flex flex-wrap gap-2">
+                    <Button size="sm" variant="success" onClick={() => addToast({ variant: 'success', title: 'Sucesso!', message: 'Operação concluída com êxito.' })}>Toast Sucesso</Button>
+                    <Button size="sm" variant="secondary" onClick={() => addToast({ variant: 'warning', title: 'Atenção', message: 'Verifique os dados antes de continuar.' })}>Toast Aviso</Button>
+                    <Button size="sm" variant="danger" onClick={() => addToast({ variant: 'danger', title: 'Erro', message: 'Não foi possível completar a ação.' })}>Toast Erro</Button>
+                    <Button size="sm" variant="outline" onClick={() => addToast({ variant: 'info', title: 'Informação', message: 'Nova versão disponível.' })}>Toast Info</Button>
+                    <Button size="sm" variant="ghost" onClick={() => setSnackbar(true)}>Snackbar</Button>
+                    <Button size="sm" variant="outline" onClick={() => setOffline((v) => !v)}>{offline ? 'Simular Online' : 'Simular Offline'}</Button>
+                  </div>
+                </div>
+
+                {/* Error Pages */}
+                <div className="p-6 bg-white rounded-xl elevation-1">
+                  <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-4">Error Pages</span>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    {([403, 404, 500] as const).map((code) => (
+                      <div key={code} className="border border-[var(--border)] rounded-[var(--radius-lg)] overflow-hidden">
+                        <ErrorPage code={code} onBack={() => {}} onHome={() => {}} onRetry={code === 500 ? () => {} : undefined} />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Skeletons */}
+                <div className="p-6 bg-white rounded-xl elevation-1">
+                  <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-4">Skeleton / Shimmer Loading</span>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-5">
+                    <KpiCardSkeleton />
+                    <KpiCardSkeleton />
+                    <KpiCardSkeleton />
+                    <KpiCardSkeleton />
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <span className="text-[10px] text-[var(--text-muted)] font-semibold block mb-2">List Skeleton</span>
+                      <ListItemSkeleton rows={3} />
+                    </div>
+                    <div>
+                      <span className="text-[10px] text-[var(--text-muted)] font-semibold block mb-2">Card Skeleton (mobile)</span>
+                      <CardSkeleton />
+                    </div>
+                  </div>
+                  <div className="mt-4">
+                    <span className="text-[10px] text-[var(--text-muted)] font-semibold block mb-2">Table Skeleton</span>
+                    <div className="border border-[var(--border)] rounded-[var(--radius-md)] overflow-hidden">
+                      <table className="w-full text-[13px]">
+                        <tbody><TableRowSkeleton cols={5} rows={3} /></tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Empty States */}
+                <div className="p-6 bg-white rounded-xl elevation-1">
+                  <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-4">Empty States</span>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="border border-[var(--border)] rounded-[var(--radius-lg)]">
+                      <EmptyState context="search" />
+                    </div>
+                    <div className="border border-[var(--border)] rounded-[var(--radius-lg)]">
+                      <EmptyState context="clients" action={{ label: 'Novo Cliente', onClick: () => {} }} />
+                    </div>
+                    <div className="border border-[var(--border)] rounded-[var(--radius-lg)]">
+                      <EmptyState context="contracts" action={{ label: 'Criar Contrato', onClick: () => {} }} />
+                    </div>
+                    <div className="border border-[var(--border)] rounded-[var(--radius-lg)]">
+                      <EmptyState context="reports" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* NOTIFICAÇÕES */}
+            <section id="notificacoes">
+              <SectionTitle>Sistema de Notificações</SectionTitle>
+              <div className="space-y-5">
+                <div className="p-6 bg-white rounded-xl elevation-1">
+                  <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-4">Notification Bell + Panel</span>
+                  <div className="flex items-center gap-6 flex-wrap">
+                    <div className="flex items-center gap-2">
+                      <span className="text-[13px] text-[var(--text-muted)]">Bell com badge:</span>
+                      <NotificationBell notifications={notifications} onMarkRead={markRead} onMarkAllRead={markAllRead} onDismiss={dismissNotif} />
+                    </div>
+                    <Button size="sm" variant="secondary" onClick={() => addNotif({ variant: 'success', title: 'Nova notificação', message: 'Teste de push notification.', time: 'Agora' })}>
+                      + Adicionar notificação
+                    </Button>
+                  </div>
+                  <div className="mt-5">
+                    <NotificationPanel notifications={notifications} onMarkRead={markRead} onMarkAllRead={markAllRead} onDismiss={dismissNotif} />
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* MOBILE NAV */}
+            <section id="mobile">
+              <SectionTitle>Mobile Navigation</SectionTitle>
+              <div className="space-y-5">
+                <div className="p-6 bg-white rounded-xl elevation-1">
+                  <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-4">Bottom Tabs (mobile)</span>
+                  <div className="relative border border-[var(--border)] rounded-[var(--radius-lg)] overflow-hidden" style={{ height: 120 }}>
+                    <BottomTabs
+                      items={[
+                        { id: 'dashboard', icon: <LayoutDashboard size={20} />, label: 'Início' },
+                        { id: 'viagens', icon: <Car size={20} />, label: 'Viagens', badge: 3 },
+                        { id: 'docs', icon: <FileText size={20} />, label: 'Docs' },
+                        { id: 'notifs', icon: <Bell size={20} />, label: 'Alertas', badge: 7 },
+                        { id: 'perfil', icon: <User size={20} />, label: 'Perfil' },
+                      ]}
+                      activeId={activeTab}
+                      onChange={setActiveTab}
+                      className="!fixed-none !relative !bottom-auto"
+                    />
+                  </div>
+                </div>
+                <div className="p-6 bg-white rounded-xl elevation-1">
+                  <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-4">Drawer (mobile)</span>
+                  <Button onClick={() => setDrawerOpen(true)}>Abrir Drawer</Button>
+                  <Drawer open={drawerOpen} onClose={() => setDrawerOpen(false)} title="Menu">
+                    <div className="p-4 flex flex-col gap-1">
+                      {sidebarItems.map((item, i) => (
+                        <button key={i} className="flex items-center gap-3 py-2.5 px-3 rounded-[var(--radius-md)] text-[13px] font-medium text-[var(--text-secondary)] hover:bg-[var(--primary-lighter)] hover:text-[var(--primary)] bg-transparent border-none cursor-pointer text-left transition-colors">
+                          {item.icon} {item.label}
+                        </button>
+                      ))}
+                    </div>
+                  </Drawer>
+                </div>
+              </div>
+            </section>
+
+            {/* FORMS AVANÇADOS */}
+            <section id="forms-avancados">
+              <SectionTitle>Formulários Avançados</SectionTitle>
+              <div className="space-y-5">
+                <div className="p-6 bg-white rounded-xl elevation-1">
+                  <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-4">Inputs Especiais</span>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <PasswordInput label="Senha" placeholder="••••••••" />
+                    <DatePicker label="Data de Início" />
+                    <MaskedInput label="Telefone" mask="phone" placeholder="(11) 99999-9999" />
+                    <MaskedInput label="CNPJ" mask="cnpj" placeholder="00.000.000/0001-00" />
+                    <MaskedInput label="CPF" mask="cpf" placeholder="000.000.000-00" />
+                    <MaskedInput label="Valor" mask="currency" placeholder="R$ 0,00" />
+                  </div>
+                </div>
+                <div className="p-6 bg-white rounded-xl elevation-1">
+                  <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-4">Checkbox & Radio</span>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div className="flex flex-col gap-3">
+                      <Checkbox label="Aceito os termos de uso" checked={checkVal} onChange={setCheckVal} />
+                      <Checkbox label="Receber notificações por e-mail" checked={true} onChange={() => {}} />
+                      <Checkbox label="Opção desabilitada" checked={false} onChange={() => {}} disabled />
+                    </div>
+                    <RadioGroup
+                      label="Tipo de Contrato"
+                      value={radioVal}
+                      onChange={setRadioVal}
+                      options={[
+                        { value: 'b2b', label: 'B2B — Empresa', description: 'Contrato corporativo com NIF/CNPJ' },
+                        { value: 'b2c', label: 'B2C — Pessoa Física', description: 'Contrato individual com CPF' },
+                        { value: 'holding', label: 'Holding', description: 'Grupo empresarial com múltiplas entidades' },
+                      ]}
+                    />
+                  </div>
+                </div>
+                <div className="p-6 bg-white rounded-xl elevation-1">
+                  <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-4">File Upload</span>
+                  <FileUpload label="Documentos do Contrato" accept=".pdf, .docx, .png" multiple />
+                </div>
+                <div className="p-6 bg-white rounded-xl elevation-1">
+                  <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-4">Rating & Avaliação</span>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div className="flex flex-col gap-3">
+                      <span className="text-[13px] font-semibold text-[var(--text-primary)]">Avaliação simples</span>
+                      <StarRating value={4} size={28} />
+                      <StarRating value={2} size={20} readOnly />
+                    </div>
+                    <div>
+                      <span className="text-[13px] font-semibold text-[var(--text-primary)] block mb-3">Com comentário</span>
+                      <RatingWithComment onSubmit={(r, c) => addToast({ variant: 'success', title: `Avaliação ${r}★ enviada`, message: c || undefined })} />
+                    </div>
+                  </div>
+                </div>
+                <div className="p-6 bg-white rounded-xl elevation-1">
+                  <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-4">Modal de Confirmação / Ação Destrutiva</span>
+                  <div className="flex gap-3 flex-wrap">
+                    <Button variant="secondary" onClick={() => setConfirmModal(true)}>Modal com Justificativa</Button>
+                  </div>
+                  <ConfirmModal
+                    open={confirmModal}
+                    onClose={() => setConfirmModal(false)}
+                    onConfirm={(j) => { setConfirmModal(false); addToast({ variant: 'success', title: 'Ação confirmada', message: j }) }}
+                    title="Suspender Cliente"
+                    description="Esta ação bloqueará novos contratos e consumo de serviços."
+                    confirmLabel="Confirmar Suspensão"
+                    requireJustification
+                    destructive={false}
+                  />
+                </div>
+              </div>
+            </section>
+
+            {/* TREE VIEW */}
+            <section id="tree">
+              <SectionTitle>Tree View & State Badge</SectionTitle>
+              <div className="space-y-5">
+                <div className="p-6 bg-white rounded-xl elevation-1">
+                  <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-4">Hierarquia Organizacional</span>
+                  <TreeView
+                    selectedId={selectedTree}
+                    onSelect={(n) => setSelectedTree(n.id)}
+                    nodes={[
+                      {
+                        id: '1', label: 'Acme Corporation', icon: <Building2 size={14} className="text-[var(--primary)]" />, badge: 3,
+                        actions: [
+                          { icon: <Plus size={12} />, label: 'Adicionar', onClick: () => {} },
+                          { icon: <Pencil size={12} />, label: 'Editar', onClick: () => {} },
+                        ],
+                        children: [
+                          {
+                            id: '1-1', label: 'Departamento Comercial', icon: <FolderOpen size={14} className="text-[#F59E0B]" />, badge: 12,
+                            children: [
+                              { id: '1-1-1', label: 'Equipa Lisboa', icon: <Users size={13} className="text-[var(--text-muted)]" /> },
+                              { id: '1-1-2', label: 'Equipa Porto', icon: <Users size={13} className="text-[var(--text-muted)]" /> },
+                            ],
+                          },
+                          {
+                            id: '1-2', label: 'Departamento Financeiro', icon: <FolderClosed size={14} className="text-[#6366F1]" />, badge: 8,
+                            children: [
+                              { id: '1-2-1', label: 'Contabilidade', icon: <Users size={13} className="text-[var(--text-muted)]" /> },
+                            ],
+                          },
+                          { id: '1-3', label: 'TI & Sistemas', icon: <FolderClosed size={14} className="text-[#10B981]" /> },
+                        ],
+                      },
+                      {
+                        id: '2', label: 'Grupo Horizonte', icon: <Building2 size={14} className="text-[#059669]" />, badge: 7,
+                        children: [
+                          { id: '2-1', label: 'Brasil', icon: <FolderOpen size={14} className="text-[#F59E0B]" /> },
+                          { id: '2-2', label: 'Portugal', icon: <FolderOpen size={14} className="text-[#F59E0B]" /> },
+                        ],
+                      },
+                    ]}
+                  />
+                </div>
+                <div className="p-6 bg-white rounded-xl elevation-1">
+                  <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-4">State Badge — Chips Semânticos</span>
+                  <div className="flex flex-wrap gap-2">
+                    <StateBadge color="green">Ativo</StateBadge>
+                    <StateBadge color="yellow">Pendente</StateBadge>
+                    <StateBadge color="red">Bloqueado</StateBadge>
+                    <StateBadge color="blue">Em Revisão</StateBadge>
+                    <StateBadge color="indigo">Em Configuração</StateBadge>
+                    <StateBadge color="orange">Suspenso</StateBadge>
+                    <StateBadge color="pink">Convidado</StateBadge>
+                    <StateBadge color="gray">Inativo</StateBadge>
+                    <StateBadge color="green" size="sm">sm</StateBadge>
+                    <StateBadge color="red" dot={false}>Sem dot</StateBadge>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* MAPA & TRACKING */}
+            <section id="mapa">
+              <SectionTitle>Mapa Interativo & Tracking</SectionTitle>
+              <div className="space-y-5">
+                <div className="p-6 bg-white rounded-xl elevation-1">
+                  <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-4">Mapa com Pins, Clusters e Controles</span>
+                  <MapView
+                    height="400px"
+                    showLegend
+                    pins={[
+                      { id: 'v1', lat: 38.7, lng: -9.1, label: 'Veículo #001', type: 'vehicle', status: 'active' },
+                      { id: 'v2', lat: 41.1, lng: -8.6, label: 'Veículo #002', type: 'vehicle', status: 'idle' },
+                      { id: 'd1', lat: 38.5, lng: -9.3, label: 'Destino', type: 'destination' },
+                      { id: 'o1', lat: 39.0, lng: -8.8, label: 'Origem', type: 'origin' },
+                      { id: 'a1', lat: 40.2, lng: -8.4, label: 'Alerta', type: 'alert' },
+                    ]}
+                    clusters={[
+                      { id: 'c1', count: 12, x: 60, y: 40 },
+                      { id: 'c2', count: 5, x: 80, y: 70 },
+                    ]}
+                  />
+                </div>
+              </div>
+            </section>
+
+            {/* POD CAPTURE */}
+            <section id="pod">
+              <SectionTitle>POD Capture</SectionTitle>
+              <div className="p-6 bg-white rounded-xl elevation-1">
+                <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-4">Prova de Entrega — Foto + Assinatura + Observações</span>
+                <div className="max-w-[480px]">
+                  <PODCapture onSubmit={(data) => addToast({ variant: 'success', title: 'POD registado', message: `Foto: ${data.photo ? 'sim' : 'não'} · Assinatura: ${data.signature ? 'sim' : 'não'}` })} />
+                </div>
+              </div>
+            </section>
+
           </main>
         </div>
 
@@ -693,9 +1039,13 @@ function App() {
         </footer>
       </div>
 
+      {/* GLOBAL: Toasts, Snackbar, Offline */}
+      <ToastContainer toasts={toasts} onClose={removeToast} />
+      <Snackbar open={snackbar} message="Alterações guardadas com sucesso." action={{ label: 'Desfazer', onClick: () => setSnackbar(false) }} onClose={() => setSnackbar(false)} />
+      <OfflineBanner offline={offline} retryCount={3} onRetry={() => setOffline(false)} />
+
       {/* MODALS */}
-      <Modal open={justifyModal} onClose={() => setJustifyModal(false)}>
-        <div className="flex flex-col gap-5">
+      <Modal open={justifyModal} onClose={() => setJustifyModal(false)}>        <div className="flex flex-col gap-5">
           <div className="flex items-center gap-3">
             <div className="w-11 h-11 bg-[var(--warning-bg)] rounded-xl flex items-center justify-center">
               <AlertTriangle size={22} className="text-[var(--warning)]" />
