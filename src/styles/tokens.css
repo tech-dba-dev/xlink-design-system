@@ -4,13 +4,20 @@
    DESIGN TOKENS — xLink
 ═══════════════════════════════════════════ */
 :root {
-  --primary-darkest: #071628;
-  --primary-dark:    #0D2847;
-  --primary:         #1D63ED;
-  --primary-mid:     #5B93F5;
-  --primary-light:   #DBEAFE;
-  --primary-lighter: #EFF6FF;
-  --surface:         #F8FAFF;
+  /* Paleta Xcel — brand oficial */
+  --brand-darkest:   #13293D;
+  --brand-dark:      #006494;
+  --brand-mid:       #247BA0;
+  --brand-light:     #1B98E0;
+  --brand-lightest:  #E8F1F2;
+
+  --primary-darkest: #13293D;
+  --primary-dark:    #006494;
+  --primary:         #1B98E0;
+  --primary-mid:     #247BA0;
+  --primary-light:   #E8F1F2;
+  --primary-lighter: #F0F7F9;
+  --surface:         #F5FAFB;
   --surface-white:   #FFFFFF;
 
   --success:     #10B981;
@@ -85,7 +92,7 @@ body {
 }
 
 .glass-panel-dark {
-  background: rgba(13,40,71,0.85);
+  background: rgba(19,41,61,0.85);
   backdrop-filter: blur(16px);
   border: 1px solid rgba(255,255,255,0.08);
 }

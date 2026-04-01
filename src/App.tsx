@@ -31,7 +31,7 @@ import {
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="font-title text-xl font-bold mb-6 text-gray-800 flex items-center gap-3 pl-4 border-l-[3px] border-l-[var(--primary)]">
+    <h2 className="font-title text-xl font-bold mb-6 text-[var(--brand-darkest)] flex items-center gap-3 pl-4 border-l-[3px] border-l-[var(--brand-light)]">
       {children}
     </h2>
   )
@@ -137,12 +137,10 @@ function App() {
         {/* HEADER */}
         <header className="mb-12 pb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-[var(--border)]">
           <div className="flex items-center gap-4">
-            <div className="w-11 h-11 bg-[var(--primary)] rounded-xl flex items-center justify-center">
-              <XLinkLogo size={24} color="white" />
-            </div>
+            <img src="/logos/xcel-logo-color.png" alt="Xcel" className="h-10 w-auto object-contain" />
             <div>
-              <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-[var(--primary)] opacity-60">Design System v1.0</span>
-              <h1 className="font-title text-xl font-bold text-[var(--text-primary)] leading-tight mt-0.5">
+              <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-[var(--brand-dark)] opacity-70">Design System v1.0</span>
+              <h1 className="font-title text-xl font-bold text-[var(--brand-darkest)] leading-tight mt-0.5">
                 xLink
               </h1>
             </div>
@@ -163,7 +161,7 @@ function App() {
                     href={`#${item.id}`}
                     onClick={() => setActiveNav(item.id)}
                     className={`flex items-center gap-3 py-2 px-3 rounded-lg no-underline transition-colors ${
-                      activeNav === item.id ? 'text-[var(--primary)]' : 'text-[var(--text-muted)] hover:text-[var(--primary)]'
+                      activeNav === item.id ? 'text-[var(--brand-light)] font-semibold' : 'text-[var(--text-muted)] hover:text-[var(--brand-mid)]'
                     }`}
                   >
                     {item.icon} {item.label}
@@ -179,30 +177,30 @@ function App() {
             <section id="marca">
               <SectionTitle>Identidade de Marca</SectionTitle>
               <div className="space-y-5">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div className="p-8 bg-white rounded-xl elevation-1 flex flex-col gap-4">
-                    <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider">Fundo claro</span>
-                    <div className="flex items-center justify-center py-6 gap-4">
-                      <div className="w-12 h-12 bg-[var(--primary)] rounded-[14px] flex items-center justify-center">
-                        <XLinkLogo size={26} color="white" />
-                      </div>
-                      <div>
-                        <div className="font-title text-[22px] font-bold text-[var(--text-primary)] leading-none">xLink</div>
-                        <div className="text-[10px] font-medium text-[var(--text-muted)] tracking-wider mt-px">DESIGN SYSTEM</div>
-                      </div>
-                    </div>
+                {/* Logos em contexto */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                  <div className="p-8 bg-white rounded-xl elevation-1 flex flex-col gap-4 items-center">
+                    <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider self-start">Cor — fundo claro</span>
+                    <img src="/logos/xcel-logo-color.png" alt="Xcel logo cor" className="h-12 w-auto object-contain" />
                   </div>
-                  <div className="p-8 rounded-xl flex flex-col gap-4 bg-[var(--primary-dark)]">
-                    <span className="text-[10px] font-bold text-white/30 uppercase tracking-wider">Fundo escuro</span>
-                    <div className="flex items-center justify-center py-6 gap-4">
-                      <div className="w-12 h-12 bg-white/[0.12] rounded-[14px] flex items-center justify-center border border-white/10">
-                        <XLinkLogo size={26} color="white" />
-                      </div>
-                      <div>
-                        <div className="font-title text-[22px] font-bold text-white leading-none">xLink</div>
-                        <div className="text-[10px] font-medium text-white/40 tracking-wider mt-px">DESIGN SYSTEM</div>
-                      </div>
-                    </div>
+                  <div className="p-8 rounded-xl flex flex-col gap-4 items-center" style={{ background: 'var(--brand-darkest)' }}>
+                    <span className="text-[10px] font-bold text-white/30 uppercase tracking-wider self-start">Branco — fundo escuro</span>
+                    <img src="/logos/xcel-logo-white.png" alt="Xcel logo branco" className="h-12 w-auto object-contain" />
+                  </div>
+                  <div className="p-8 bg-white rounded-xl elevation-1 flex flex-col gap-4 items-center">
+                    <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider self-start">Preto — fundo claro</span>
+                    <img src="/logos/xcel-logo-black.png" alt="Xcel logo preto" className="h-12 w-auto object-contain" />
+                  </div>
+                </div>
+                {/* Logo compacta — sem tagline */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div className="p-8 rounded-xl flex flex-col gap-4 items-center" style={{ background: 'var(--brand-darkest)' }}>
+                    <span className="text-[10px] font-bold text-white/30 uppercase tracking-wider self-start">Compacta — fundo escuro</span>
+                    <img src="/logos/xcel-logo-icon.png" alt="Xcel logo compacta escuro" className="h-12 w-auto object-contain" />
+                  </div>
+                  <div className="p-8 bg-white rounded-xl elevation-1 flex flex-col gap-4 items-center">
+                    <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider self-start">Compacta — fundo claro</span>
+                    <img src="/logos/xcel-logo-icon.png" alt="Xcel logo compacta claro" className="h-12 w-auto object-contain" />
                   </div>
                 </div>
               </div>
@@ -213,19 +211,18 @@ function App() {
               <SectionTitle>Paleta de Cores</SectionTitle>
               <div className="space-y-5">
                 <div className="p-5 bg-white rounded-xl elevation-1">
-                  <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-4">Escala Primaria</span>
-                  <div className="grid grid-cols-6 rounded-xl overflow-hidden border border-[var(--border)]">
+                  <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-4">Paleta Xcel — Escala Primária</span>
+                  <div className="grid grid-cols-5 rounded-xl overflow-hidden border border-[var(--border)]">
                     {[
-                      { name: 'DARKEST', hex: '#071628', bg: 'var(--primary-darkest)', light: true },
-                      { name: 'DARK', hex: '#0D2847', bg: 'var(--primary-dark)', light: true },
-                      { name: 'PRIMARY', hex: '#1D63ED', bg: 'var(--primary)', light: true },
-                      { name: 'MID', hex: '#5B93F5', bg: 'var(--primary-mid)', light: true },
-                      { name: 'LIGHT', hex: '#DBEAFE', bg: 'var(--primary-light)', light: false },
-                      { name: 'LIGHTER', hex: '#EFF6FF', bg: 'var(--primary-lighter)', light: false },
+                      { name: 'DARKEST', hex: '#13293D', bg: 'var(--brand-darkest)', light: true },
+                      { name: 'DARK', hex: '#006494', bg: 'var(--brand-dark)', light: true },
+                      { name: 'MID', hex: '#247BA0', bg: 'var(--brand-mid)', light: true },
+                      { name: 'LIGHT', hex: '#1B98E0', bg: 'var(--brand-light)', light: true },
+                      { name: 'LIGHTEST', hex: '#E8F1F2', bg: 'var(--brand-lightest)', light: false },
                     ].map((c) => (
-                      <div key={c.name} className="h-20 flex flex-col justify-end p-2" style={{ background: c.bg }}>
-                        <span className={`text-[9px] font-bold ${c.light ? 'text-white/50' : 'text-[var(--primary)]'}`}>{c.name}</span>
-                        <span className={`text-[10px] font-semibold font-mono ${c.light ? 'text-white/70' : 'text-[var(--text-muted)]'}`}>{c.hex}</span>
+                      <div key={c.name} className="h-24 flex flex-col justify-end p-3" style={{ background: c.bg }}>
+                        <span className={`text-[9px] font-bold ${c.light ? 'text-white/50' : 'text-[var(--brand-dark)]'}`}>{c.name}</span>
+                        <span className={`text-[10px] font-semibold font-mono ${c.light ? 'text-white/80' : 'text-[var(--text-muted)]'}`}>{c.hex}</span>
                       </div>
                     ))}
                   </div>

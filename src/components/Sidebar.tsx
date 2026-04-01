@@ -33,11 +33,11 @@ export function Sidebar({ items, defaultCollapsed = false, className = '' }: Sid
 
       {/* Header — logo always visible */}
       <div className={`px-3 pb-3 border-b border-white/[0.06] mb-2 flex items-center ${collapsed ? 'justify-center' : 'gap-2.5'}`}>
-        <div className="w-8 h-8 bg-[var(--primary)] rounded-lg flex items-center justify-center shrink-0">
-          <XLinkLogo size={16} color="white" />
+        <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 overflow-hidden bg-white/10">
+          <img src="/logos/xcel-logo-white.png" alt="Xcel" className="w-full h-full object-contain p-1" />
         </div>
         {!collapsed && (
-          <span className="text-[13px] font-bold text-white font-title whitespace-nowrap">xLink</span>
+          <span className="text-[13px] font-bold text-white font-title whitespace-nowrap">Xcel</span>
         )}
       </div>
 
@@ -52,7 +52,7 @@ export function Sidebar({ items, defaultCollapsed = false, className = '' }: Sid
               collapsed ? 'justify-center py-2.5 px-0' : 'gap-2.5 py-2.5 px-3'
             } ${
               item.active
-                ? 'text-white bg-[rgba(29,99,237,0.25)] font-semibold'
+                ? 'text-white bg-[rgba(27,152,224,0.2)] font-semibold'
                 : 'text-white/50 hover:text-white/70 hover:bg-white/[0.05]'
             } ${collapsed ? '' : 'text-[13px]'}`}
           >

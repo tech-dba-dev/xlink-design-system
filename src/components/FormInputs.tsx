@@ -10,7 +10,7 @@ interface PasswordInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>,
 
 export function PasswordInput({ label, error, className = '', ...props }: PasswordInputProps) {
   const [show, setShow] = useState(false)
-  const base = `w-full py-2.5 px-3.5 pr-10 rounded-[var(--radius-md)] border-[1.5px] border-[var(--border-input)] bg-white text-sm text-[var(--text-primary)] transition-all outline-none placeholder:text-[var(--text-muted)] focus:border-[var(--primary)] focus:shadow-[0_0_0_3px_rgba(29,99,237,0.1)] box-border`
+  const base = `w-full py-2.5 px-3.5 pr-10 rounded-[var(--radius-md)] border-[1.5px] border-[var(--border-input)] bg-white text-sm text-[var(--text-primary)] transition-all outline-none placeholder:text-[var(--text-muted)] focus:border-[var(--primary)] focus:shadow-[0_0_0_3px_rgba(27,152,224,0.12)] box-border`
 
   return (
     <div>
@@ -39,7 +39,7 @@ interface DatePickerProps {
 }
 
 export function DatePicker({ label, value, onChange, error, min, max, className = '' }: DatePickerProps) {
-  const base = `w-full py-2.5 px-3.5 rounded-[var(--radius-md)] border-[1.5px] border-[var(--border-input)] bg-white text-sm text-[var(--text-primary)] transition-all outline-none focus:border-[var(--primary)] focus:shadow-[0_0_0_3px_rgba(29,99,237,0.1)] box-border`
+  const base = `w-full py-2.5 px-3.5 rounded-[var(--radius-md)] border-[1.5px] border-[var(--border-input)] bg-white text-sm text-[var(--text-primary)] transition-all outline-none focus:border-[var(--primary)] focus:shadow-[0_0_0_3px_rgba(27,152,224,0.12)] box-border`
 
   return (
     <div>
@@ -156,7 +156,7 @@ interface MaskedInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, '
 
 export function MaskedInput({ label, mask, error, onChange, iconLeft, className = '', ...props }: MaskedInputProps) {
   const [display, setDisplay] = useState('')
-  const base = `w-full py-2.5 px-3.5 rounded-[var(--radius-md)] border-[1.5px] border-[var(--border-input)] bg-white text-sm text-[var(--text-primary)] transition-all outline-none placeholder:text-[var(--text-muted)] focus:border-[var(--primary)] focus:shadow-[0_0_0_3px_rgba(29,99,237,0.1)] box-border`
+  const base = `w-full py-2.5 px-3.5 rounded-[var(--radius-md)] border-[1.5px] border-[var(--border-input)] bg-white text-sm text-[var(--text-primary)] transition-all outline-none placeholder:text-[var(--text-muted)] focus:border-[var(--primary)] focus:shadow-[0_0_0_3px_rgba(27,152,224,0.12)] box-border`
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const raw = e.target.value
