@@ -1,6 +1,5 @@
 import { useState, type ReactNode } from 'react'
 import { ChevronsLeft, ChevronsRight } from 'lucide-react'
-import { XLinkLogo } from './XLinkLogo'
 
 interface SidebarItem {
   icon: ReactNode
